@@ -1,0 +1,12 @@
+{
+  "estate_name": "Pineleaf Estate - Oranwezueaku",
+  "location": "Nibo - Awka",
+  "google_sheet_id": "1U3uQZTBHWSYeML5BNI5chG0guaNJGdbrVNe81NakU6A",
+  "contact": {
+    "whatsapp": "+2347031643793",
+    "email": "kingsleyugwuani@gmail.com"
+  },
+  "deployment": {
+    "platform": "Netlify"
+  }
+}
