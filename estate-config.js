@@ -29,7 +29,7 @@ const ESTATE_CONFIG = {
   },
   
   google_sheets: {
-    sheet_id: "PASTE_SHEET_ID_HERE",
+    sheet_id: "17D1CEVdFHPXAz8w3h_cteSr0rQ-LsuKL3M9c00FOWxE",
     sheet_tab: "THE_PLACE_ESTATE_PARCELS",
     enabled: true
   },
