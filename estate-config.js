@@ -1,25 +1,26 @@
-// UMUNIKO AMOFIA ESTATE CONFIGURATION
-// Generated: March 15, 2026
+// THE PLACE ESTATE CONFIGURATION
+// Generated: April 21, 2026
 
 const ESTATE_CONFIG = {
-  name: "Umuniko Amofia Estate",
-  location: "Eha-Amufu Township",
+  name: "The Place Estate",
+  location: "Enugu",
   state: "Enugu",
   country: "Nigeria",
   
   contact: {
-    whatsapp: "+2347025005871",
-    email: "info@azprojectslimited.com",
-    phone: "+2347025005871"
+    whatsapp: "+2349060646900",
+    email: "info@arkeyltd.com",
+    phone: "+2349060646900"
   },
   
   coordinates: {
-    center: [7.77, 6.65],
-    zoom: 15
+    // Auto-calculated from parcel bounding box - no manual entry needed
+    center: [6.512298, 7.580954],   // [lat, lng] for Leaflet
+    zoom: 17
   },
   
   plots: {
-    total: 100,
+    total: 36,
     status: {
       available: "Available",
       reserved: "Reserved",
@@ -28,12 +29,13 @@ const ESTATE_CONFIG = {
   },
   
   google_sheets: {
-    sheet_id: "1fDTPcYIu6dRfydAiqoKs_pYsKh2xhtbHN7YUNsULEwA",
+    sheet_id: "PASTE_SHEET_ID_HERE",
+    sheet_tab: "THE_PLACE_ESTATE_PARCELS",
     enabled: true
   },
   
   admin: {
-    password: "Skillnet2026",
+    password: "Val2026",
     features: {
       edit_status: true,
       change_prices: true,
@@ -45,7 +47,7 @@ const ESTATE_CONFIG = {
   branding: {
     company: "A&Z Projects Ltd",
     logo_url: "https://azprojects-tech.github.io/assets/logo.png",
-    footer_contact: "info@azprojectslimited.com"
+    footer_contact: "info@arkeyltd.com"
   }
 };
 

@@ -1,12 +1,14 @@
 {
-  "estate_name": "Pineleaf Estate - Oranwezueaku",
-  "location": "Nibo - Awka",
-  "google_sheet_id": "1U3uQZTBHWSYeML5BNI5chG0guaNJGdbrVNe81NakU6A",
+  "estate_name": "The Place Estate",
+  "location": "Enugu",
+  "google_sheet_id": "PASTE_SHEET_ID_HERE",
+  "google_sheet_tab": "THE_PLACE_ESTATE_PARCELS",
   "contact": {
-    "whatsapp": "+2347031643793",
-    "email": "kingsleyugwuani@gmail.com"
+    "whatsapp": "+2349060646900",
+    "email": "info@arkeyltd.com"
   },
   "deployment": {
-    "platform": "Netlify"
+    "platform": "Netlify",
+    "github_repo": "https://github.com/Azprojects-tech/The-Place-Estate.git"
   }
 }

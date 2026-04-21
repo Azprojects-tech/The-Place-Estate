@@ -543,7 +543,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google" content="notranslate">
     <meta name="robots" content="noindex, nofollow">
-    <title>Umuniko Amofia Estate - Real Estate Mapper</title>
+    <title>The Place Estate - Real Estate Mapper</title>
     
     <!-- Configuration -->
     <script src="estate-config.js"></script>
@@ -1201,7 +1201,7 @@
     
     <!-- Welcome Modal -->
     <div class="welcome-modal" id="welcomeModal">
-        <h2>WELCOME TO UMUNIKO AMOFIA ESTATE</h2>
+        <h2>WELCOME TO THE PLACE ESTATE</h2>
         <p>Click each plot to see the details</p>
     </div>
 
@@ -1220,7 +1220,7 @@
     <div class="database-panel" id="databasePanel" style="display: none;">
         <div class="database-content">
             <div class="database-header">
-                <h3>🗃️ Umuniko Amofia Estate - CLIENT DATABASE</h3>
+                <h3>🗃️ The Place Estate - CLIENT DATABASE</h3>
                 <button onclick="closeDatabasePanel()" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; float: right;">✕ Close</button>
             </div>
             <div class="database-body" id="databaseBody">
@@ -1232,7 +1232,7 @@
     </div>
 
     <div class="header">
-        <h1>Umuniko Amofia Estate</h1>
+        <h1>The Place Estate</h1>
     </div>
     
     <div class="loading" id="loading">
@@ -1983,7 +1983,7 @@
                     .setLatLng(map.getCenter())
                     .setContent(`
                         <div style="text-align: center; padding: 10px;">
-                            <h4 style="color: #2c5f3f; margin: 0 0 8px 0;">🏘️ Viewing Umuniko Amofia Estate - Eha-Amufu</h4>
+                            <h4 style="color: #2c5f3f; margin: 0 0 8px 0;">🏘️ Viewing The Place Estate - Enugu</h4>
                             <p style="margin: 0; font-size: 12px;">Zoom out to see surrounding landmarks and roads</p>
                         </div>
                     `)
@@ -2348,10 +2348,10 @@
             const formattedPrice = formatPrice(priceValue);
             
             // Create direct message to your WhatsApp number
-            const message = `🏠 INQUIRY - Umuniko Amofia Estate%0A%0A🎯 Interested in: Parcel ${parcelNumber}%0A💰 Listed Price: ${formattedPrice}%0A📍 Status: ${statusLabel}%0A%0A👋 Hi! I'm interested in this parcel. Please provide more information.%0A%0A🗺️ Source: ${window.location.href}`;
+            const message = `🏠 INQUIRY - The Place Estate%0A%0A🎯 Interested in: Parcel ${parcelNumber}%0A💰 Listed Price: ${formattedPrice}%0A📍 Status: ${statusLabel}%0A%0A👋 Hi! I'm interested in this parcel. Please provide more information.%0A%0A🗺️ Source: ${window.location.href}`;
             
             // Open WhatsApp DIRECTLY to your number (not modal, not customer choice)
-            window.open(`https://wa.me/2347025005871?text=${message}`, '_blank');
+            window.open(`https://wa.me/2349060646900?text=${message}`, '_blank');
         }
         
         function shareOnWhatsApp(parcelId) {
@@ -2362,7 +2362,7 @@
             const parcelData = getParcelData(selectedParcel);
             const priceValue = parcelData.priceNaira && parseFloat(parcelData.priceNaira) > 0 ? parseFloat(parcelData.priceNaira) : 15000000;
             const formattedPrice = formatPrice(priceValue);
-            const message = `🏠 Check out this property at Umuniko Amofia Estate!%0A%0A📍 Parcel: ${parcelNumber}%0A💰 Price: ${formattedPrice}%0A⭐ Premium location with excellent amenities%0A%0A🗺️ View interactive map: ${window.location.href}%0A%0A📞 Contact us for more info: +2347025005871`;
+            const message = `🏠 Check out this property at The Place Estate!%0A%0A📍 Parcel: ${parcelNumber}%0A💰 Price: ${formattedPrice}%0A⭐ Premium location with excellent amenities%0A%0A🗺️ View interactive map: ${window.location.href}%0A%0A📞 Contact us for more info: +2349060646900`;
             window.open(`https://wa.me/?text=${message}`, '_blank');
         }
         
@@ -2600,7 +2600,7 @@
         
         let currentView = 'customer'; // 'customer' or 'client'
         let isClientAuthenticated = false;
-        const CLIENT_PASSWORD = 'Skillnet2026'; // Change this to a secure password
+        const CLIENT_PASSWORD = 'Val2026'; // Change this to a secure password
         
         // ===== SYSTEM 1: REFERRAL LINK TRACKING =====
         class ReferralSystem {
@@ -2858,13 +2858,13 @@
           }
         }
         
-        // SIMPLIFIED Google Sheets Configuration - UMUNIKO AMOFIA ESTATE
+        // SIMPLIFIED Google Sheets Configuration - THE PLACE ESTATE
         const GOOGLE_SHEETS_CONFIG = {
-            spreadsheetId: '1fDTPcYIu6dRfydAiqoKs_pYsKh2xhtbHN7YUNsULEwA', // Umuniko Amofia Estate sheet with 100 parcels
+            spreadsheetId: 'PASTE_SHEET_ID_HERE', // The Place Estate - paste Sheet ID from Google Sheets URL
             apiKey: 'AIzaSyCkLewazfYqcQ_llw_Adj_mTNK71T2iRL0', // Shared API Key - Parcel-Vision-Pro-API-Key
-            sheetName: 'UMUNIKO_AMOFIA_PARCELS', // Sheet name
-            sheetNameEncoded: 'UMUNIKO_AMOFIA_PARCELS', // Already URL-safe (no encoding needed)
-            sheetUrl: 'https://docs.google.com/spreadsheets/d/1fDTPcYIu6dRfydAiqoKs_pYsKh2xhtbHN7YUNsULEwA/edit',
+            sheetName: 'THE_PLACE_ESTATE_PARCELS', // Sheet name
+            sheetNameEncoded: 'THE_PLACE_ESTATE_PARCELS', // Already URL-safe (no encoding needed)
+            sheetUrl: 'https://docs.google.com/spreadsheets/d/PASTE_SHEET_ID_HERE/edit',
             useEmbeddedDataOnly: false // Enable Google Sheets API calls
         };
         
@@ -4708,9 +4708,9 @@ P003        | reserved  | 2025-08-27</pre>
                 return sum + price;
             }, 0);
             
-            // Calculate potential total revenue (all parcels at Umuniko Amofia default price)
-            const totalParcels = allParcels.length || 100;
-            const defaultPrice = 15000000; // Umuniko Amofia Estate default price (updated from Google Sheets)
+            // Calculate potential total revenue (all parcels at The Place Estate default price)
+            const totalParcels = allParcels.length || 36;
+            const defaultPrice = 15000000; // The Place Estate default price (updated from Google Sheets)
             const totalPotentialRevenue = totalParcels * defaultPrice;
             const remainingRevenuePotential = totalPotentialRevenue - revenueGenerated - revenueExpected;
             
