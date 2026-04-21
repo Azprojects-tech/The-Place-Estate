@@ -2,7 +2,7 @@
 // Generated: April 21, 2026
 
 const ESTATE_CONFIG = {
-  name: "The Place Estate",
+  name: "The Palace Estate",
   location: "Enugu",
   state: "Enugu",
   country: "Nigeria",
