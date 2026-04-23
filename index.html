@@ -1197,7 +1197,7 @@
 </head>
 <body class="customer-view">
     <!-- Sync Status Indicator -->
-    <div class="sync-status" id="syncStatus">?? Syncing with Google Sheets...</div>
+    <div class="sync-status" id="syncStatus">🔄 Syncing with Google Sheets...</div>
     
     <!-- Welcome Modal -->
     <div class="welcome-modal" id="welcomeModal">
@@ -1209,7 +1209,7 @@
     <!-- Client Login Modal -->
     <div class="client-login" id="clientLogin">
         <div class="login-form">
-            <h3>?? Client Access</h3>
+            <h3>🔐 Client Access</h3>
             <input type="password" id="clientPassword" placeholder="Enter client password" onkeyup="handleLoginKeyup(event)">
             <button class="login-btn" onclick="authenticateClient()">Login</button>
             <button class="login-btn" onclick="closeLogin()" style="background: #6c757d; margin-top: 10px;">Cancel</button>
@@ -1586,13 +1586,13 @@
             
             console.log(`Loaded ${parcelLayers.length} parcels successfully!`);
             
-            // ?? AUTO-LOAD PUBLIC PARCEL STATUSES FOR ALL USERS
+            // 🔄 AUTO-LOAD PUBLIC PARCEL STATUSES FOR ALL USERS
             setTimeout(() => {
                 loadPublicParcelStatuses(false); // Initial load without indicator
                 
-                // ?? SET UP AUTOMATIC REFRESH EVERY 30 SECONDS FOR ALL USERS
+                // ⏰ SET UP AUTOMATIC REFRESH EVERY 30 SECONDS FOR ALL USERS
                 setInterval(() => {
-                    console.log('?? Auto-refreshing parcel statuses...');
+                    console.log('🔄 Auto-refreshing parcel statuses...');
                     loadPublicParcelStatuses(true); // Show indicator for auto-refresh
                 }, 30000); // Refresh every 30 seconds
                 
@@ -1917,7 +1917,7 @@
             if (navigator.geolocation) {
                 window.locationRequestInProgress = true;
                 const locationButton = document.querySelector('button[onclick="locateUser()"]');
-                locationButton.textContent = '?? Locating...';
+                locationButton.textContent = '📍 Locating...';
                 locationButton.disabled = true;
                 
                 navigator.geolocation.getCurrentPosition(function(position) {
@@ -1938,7 +1938,7 @@
                                 font-size: 24px;
                                 text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
                                 transform: translate(-50%, -100%);
-                            ">??</div>`,
+                            ">📍</div>`,
                             iconSize: [24, 24],
                             iconAnchor: [12, 24]
                         })
@@ -2066,8 +2066,8 @@
                         <div style="background: #fff3cd; padding: 8px; border-radius: 4px; border-left: 3px solid #ffc107; margin-top: 8px;">
                             <p style="margin: 0; font-size: 12px; color: #856404;">
                                 ⚠️ This change is TEMPORARY<br>
-                                ?? Update Google Sheets to make it permanent<br>
-                                ?? Use "Admin Sync" to confirm changes
+                                ✏️ Update Google Sheets to make it permanent<br>
+                                🔄 Use "Admin Sync" to confirm changes
                             </p>
                         </div>
                     </div>
@@ -2089,11 +2089,11 @@
             
             try {
                 const testUrl = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEETS_CONFIG.spreadsheetId}/values/${GOOGLE_SHEETS_CONFIG.sheetNameEncoded}!A2:O?key=${GOOGLE_SHEETS_CONFIG.apiKey}`;
-                console.log('?? DEBUG: Full URL being called:', testUrl);
-                console.log('?? DEBUG: spreadsheetId:', GOOGLE_SHEETS_CONFIG.spreadsheetId);
-                console.log('?? DEBUG: sheetName (raw):', GOOGLE_SHEETS_CONFIG.sheetName);
-                console.log('?? DEBUG: sheetNameEncoded:', GOOGLE_SHEETS_CONFIG.sheetNameEncoded);
-                console.log('?? DEBUG: apiKey:', GOOGLE_SHEETS_CONFIG.apiKey);
+                console.log('🔍 DEBUG: Full URL being called:', testUrl);
+                console.log('🔍 DEBUG: spreadsheetId:', GOOGLE_SHEETS_CONFIG.spreadsheetId);
+                console.log('🔍 DEBUG: sheetName (raw):', GOOGLE_SHEETS_CONFIG.sheetName);
+                console.log('🔍 DEBUG: sheetNameEncoded:', GOOGLE_SHEETS_CONFIG.sheetNameEncoded);
+                console.log('🔍 DEBUG: apiKey:', GOOGLE_SHEETS_CONFIG.apiKey);
                 
                 const response = await fetch(testUrl);
                 
@@ -2169,15 +2169,15 @@
             const syncStatus = document.getElementById('syncStatus');
             if (syncStatus) {
                 syncStatus.innerHTML = `
-                    ?? <strong>Update Required:</strong> Please update your Google Sheet:<br>
-                    � <strong>Parcel:</strong> ${parcelId}<br>
-                    � <strong>New Status:</strong> ${newStatus}<br>
-                    � <strong>Date:</strong> ${currentDate}<br>
-                    � <strong>Changed By:</strong> Admin<br><br>
+                    ⚠️ <strong>Update Required:</strong> Please update your Google Sheet:<br>
+                    🎯 <strong>Parcel:</strong> ${parcelId}<br>
+                    📋 <strong>New Status:</strong> ${newStatus}<br>
+                    📅 <strong>Date:</strong> ${currentDate}<br>
+                    👤 <strong>Changed By:</strong> Admin<br><br>
                     <a href="${GOOGLE_SHEETS_CONFIG.sheetUrl}#gid=0&range=A" target="_blank" 
                        onclick="openSheetAtParcel('${parcelId}'); return false;"
                        style="background: #28a745; color: white; padding: 8px 16px; text-decoration: none; border-radius: 5px;">
-                       ?? Open Sheet → Find ${parcelId}
+                       📊 Open Sheet → Find ${parcelId}
                     </a>
                     <br><small>📝 Update columns: Status | LastUpdated | ChangedBy | AdminApproved</small>
                 `;
@@ -2260,7 +2260,7 @@
                     }
                 });
                 landBtn.classList.add('active');
-                landBtn.innerHTML = '???� Land ✓';
+                landBtn.innerHTML = '🗺️ Land ✓';
             } else {
                 // Restore original opacity
                 parcelLayers.forEach(layer => {
@@ -2272,7 +2272,7 @@
                     }
                 });
                 landBtn.classList.remove('active');
-                landBtn.innerHTML = '???� Land';
+                landBtn.innerHTML = '🗺️ Land';
             }
         }
         
@@ -2687,13 +2687,13 @@
 
           async assignTerritory(plotId, marketerName) {
             this.territories.set(plotId, marketerName);
-            console.log(`?? Territory assigned: ${plotId} → ${marketerName}`);
+            console.log(`📍 Territory assigned: ${plotId} → ${marketerName}`);
             // In production, would save to Google Sheet via Apps Script
           }
 
           async removeTerritory(plotId) {
             this.territories.delete(plotId);
-            console.log(`?? Territory removed: ${plotId}`);
+            console.log(`📍 Territory removed: ${plotId}`);
           }
 
           getAllTerritories() {
@@ -2922,12 +2922,12 @@
         }
         
         async function syncWithRealGoogleSheets(showStatus = false) {
-            console.log('?? Starting Google Sheets sync...');
+            console.log('🔄 Starting Google Sheets sync...');
             
             // Only show status if explicitly requested (manual sync) - hide on initial page load
             const debugDiv = document.getElementById('syncStatus');
             if (showStatus) {
-                debugDiv.innerHTML = '?? Syncing with Google Sheets...';
+                debugDiv.innerHTML = '🔄 Syncing with Google Sheets...';
                 debugDiv.style.display = 'block';
                 debugDiv.style.background = '#cce7ff';
                 debugDiv.style.color = '#004085';
@@ -2936,9 +2936,9 @@
             }
             
             if (!isClientAuthenticated) {
-                console.log('?? Authentication required for sync');
+                console.log('🔐 Authentication required for sync');
                 if (showStatus) {
-                    debugDiv.innerHTML = '?? Authentication required for Google Sheets sync';
+                    debugDiv.innerHTML = '🔐 Authentication required for Google Sheets sync';
                     debugDiv.style.background = '#f8d7da';
                     debugDiv.style.color = '#721c24';
                 }
@@ -2946,7 +2946,7 @@
             }
             
             try {
-                console.log('?? Fetching data from Google Sheets...');
+                console.log('📊 Fetching data from Google Sheets...');
                 
                 // Fetch data from Google Sheets
                 const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEETS_CONFIG.spreadsheetId}/values/${GOOGLE_SHEETS_CONFIG.sheetNameEncoded}!A2:M?key=${GOOGLE_SHEETS_CONFIG.apiKey}`;
@@ -2957,7 +2957,7 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 
-                console.log('?? Data received, processing changes...');
+                console.log('📊 Data received, processing changes...');
                 
                 const data = await response.json();
                 console.log('? DEBUG: Data from Google Sheets:', data);
@@ -3004,7 +3004,7 @@
                             document.getElementById('syncStatus').style.background = '#d4edda';
                             document.getElementById('syncStatus').style.color = '#155724';
                         } else {
-                            document.getElementById('syncStatus').innerHTML = `✅ Sync completed! No new changes in Google Sheets.<br><small>?? Your local admin changes are saved locally. Remember to manually update Google Sheets to share changes.</small>`;
+                            document.getElementById('syncStatus').innerHTML = `✅ Sync completed! No new changes in Google Sheets.<br><small>💾 Your local admin changes are saved locally. Remember to manually update Google Sheets to share changes.</small>`;
                             document.getElementById('syncStatus').style.background = '#e2e3e5';
                             document.getElementById('syncStatus').style.color = '#383d41';
                         }
@@ -3044,7 +3044,7 @@
                             2. Check API key has Google Sheets API enabled<br>
                             3. Try removing any domain restrictions on API key<br><br>
                             <a href="${GOOGLE_SHEETS_CONFIG.sheetUrl}" 
-                               target="_blank" style="color: #007bff;">?? Open Your Sheet</a> | 
+                               target="_blank" style="color: #007bff;">📊 Open Your Sheet</a> | 
                             <a href="https://console.cloud.google.com/apis/credentials" 
                                target="_blank" style="color: #007bff;">🔑 Check API Key</a>
                             </small>
@@ -3111,7 +3111,7 @@
                 <div style="background: white; padding: 30px; border-radius: 10px; max-width: 400px; 
                            width: 100%; margin: auto; min-height: fit-content; max-height: 90vh; 
                            overflow-y: auto; box-sizing: border-box;">
-                    <h3 style="color: #dc3545; margin: 0 0 20px 0;">?? Admin Authentication Required</h3>
+                    <h3 style="color: #dc3545; margin: 0 0 20px 0;">🔐 Admin Authentication Required</h3>
                     <p style="margin: 0 0 15px 0;">
                         To change <strong>${parcelId}</strong> to <strong>${status}</strong> as an admin, 
                         please enter the admin security code:
@@ -3132,7 +3132,7 @@
                         <button onclick="verifyAdminPassword('${parcelId}', '${status}', this)" 
                                 style="background: #dc3545; color: white; border: none; padding: 12px 20px; 
                                        border-radius: 5px; cursor: pointer; min-width: 120px;">
-                            ?? Verify & Update
+                            ✅ Verify & Update
                         </button>
                     </div>
                 </div>
@@ -3226,7 +3226,7 @@
             }
             
             localStorage.setItem('adminSecurityLog', JSON.stringify(adminLog));
-            console.log('?? Admin action logged:', logEntry);
+            console.log('📝 Admin action logged:', logEntry);
         }
         
         // Log failed admin attempts for security monitoring
@@ -3252,7 +3252,7 @@
             }
             
             localStorage.setItem('adminFailedAttempts', JSON.stringify(failedLog));
-            console.warn('?? Failed admin attempt logged:', logEntry);
+            console.warn('⚠️ Failed admin attempt logged:', logEntry);
         }
         
         // Security audit function (call from console: viewAdminSecurityLog())
@@ -3260,7 +3260,7 @@
             const adminLog = JSON.parse(localStorage.getItem('adminSecurityLog') || '[]');
             const failedLog = JSON.parse(localStorage.getItem('adminFailedAttempts') || '[]');
             
-            console.log('?? ADMIN SECURITY AUDIT LOG');
+            console.log('🔐 ADMIN SECURITY AUDIT LOG');
             console.log('===========================');
             console.log(`? Successful Admin Actions: ${adminLog.length}`);
             console.log(`? Failed Admin Attempts: ${failedLog.length}`);
@@ -3302,15 +3302,15 @@
                 .setLatLng(map.getCenter())
                 .setContent(`
                     <div style="padding: 10px; max-width: 300px;">
-                        <h4 style="margin: 0 0 8px 0; color: #28a745;">?? Secure Admin Update</h4>
+                        <h4 style="margin: 0 0 8px 0; color: #28a745;">🔐 Secure Admin Update</h4>
                         <p style="margin: 0 0 8px 0; font-size: 14px;">
                             <strong>${parcelId}</strong> updated to <strong>${status}</strong>
                         </p>
                         <div style="background: #d4edda; padding: 8px; border-radius: 4px; border-left: 3px solid #28a745;">
                             <p style="margin: 0; font-size: 12px; color: #155724;">
                                 ? Admin authentication verified
-                                <br>?? Secure change authorized
-                                <br>?? Manual Google Sheets update required
+                                <br>✅ Secure change authorized
+                                <br>📝 Manual Google Sheets update required
                             </p>
                         </div>
                     </div>
@@ -3325,17 +3325,17 @@
         // Function to update Google Sheets with admin changes
         async function updateGoogleSheets(parcelId, status, changedBy) {
             try {
-                console.log(`?? Attempting Google Sheets update: ${parcelId} -> ${status} (by ${changedBy})`);
+                console.log(`🔄 Attempting Google Sheets update: ${parcelId} -> ${status} (by ${changedBy})`);
                 
                 // ===== NEW: COMMISSION CALCULATION =====
                 if (status === 'sold') {
                     const commission = commissionCalc.calculateCommission(parcelId, 0, {});
                     if (commission.hasCommission) {
-                        console.log(`?? COMMISSION CALCULATED: ${commission.message}`);
+                        console.log(`💰 COMMISSION CALCULATED: ${commission.message}`);
                         // Here you would send WhatsApp alert, but note: requires WhatsApp API integration
                         // For now, just log it
                         console.log(`📱 Would send to: ${commission.marketerPhone}`);
-                        console.log(`?? Source: ${commission.source} (Territory or Referral)`);
+                        console.log(`📍 Source: ${commission.source} (Territory or Referral)`);
                     }
                 }
                 
@@ -3366,7 +3366,7 @@
                 }
                 
                 if (rowIndex === -1) {
-                    console.log(`?? Parcel ${parcelId} not found in Google Sheets, showing manual instructions`);
+                    console.log(`📍 Parcel ${parcelId} not found in Google Sheets, showing manual instructions`);
                     showManualUpdateInstructions(parcelId, status, changedBy, new Date().toISOString().split('T')[0]);
                     return;
                 }
@@ -3399,7 +3399,7 @@
                 
                 if (!updateResponse.ok) {
                     // Expected: Write operations require OAuth (not just API key)
-                    console.log(`?? Google Sheets write requires OAuth authentication (${updateResponse.status}), using manual workflow`);
+                    console.log(`⚠️ Google Sheets write requires OAuth authentication (${updateResponse.status}), using manual workflow`);
                     showManualUpdateInstructions(parcelId, status, changedBy, currentDate);
                     return;
                 }
@@ -3409,7 +3409,7 @@
                 showSuccessNotification(parcelId, status, changedBy, currentDate);
                 
             } catch (error) {
-                console.log(`?? Using manual Google Sheets workflow: ${error.message}`);
+                console.log(`📝 Using manual Google Sheets workflow: ${error.message}`);
                 showManualUpdateInstructions(parcelId, status, changedBy, new Date().toISOString().split('T')[0]);
             }
         }
@@ -3427,11 +3427,11 @@
                         </p>
                         <div style="background: #d4edda; padding: 8px; border-radius: 4px; border-left: 3px solid #28a745;">
                             <p style="margin: 0; font-size: 12px; color: #155724;">
-                                ?? Database synchronized automatically
+                                ✅ Database synchronized automatically
                                 <br>? Status: ${status}
-                                <br>?? Date: ${currentDate}
-                                <br>?? Changed By: <span style="color: ${changedBy === 'Admin' ? '#dc3545' : '#000'}; font-weight: bold;">${changedBy}</span>
-                                <br>?? Admin Approved: TRUE
+                                <br>📅 Date: ${currentDate}
+                                <br>👤 Changed By: <span style="color: ${changedBy === 'Admin' ? '#dc3545' : '#000'}; font-weight: bold;">${changedBy}</span>
+                                <br>✅ Admin Approved: TRUE
                             </p>
                         </div>
                     </div>
@@ -3460,22 +3460,22 @@
                             </p>
                             <p style="margin: 4px 0 0 0; font-size: 11px; color: #2d3436;">
                                 Find row for <strong>${parcelId}</strong> and update:
-                                <br>� <strong>Status</strong>: ${status}
-                                <br>� <strong>Date</strong>: ${currentDate}
-                                <br>� <strong>Changed By</strong>: <span style="color: #dc3545; font-weight: bold;">${changedBy}</span>
-                                <br>� <strong>Admin Approved</strong>: ${changedBy === 'Admin' ? 'TRUE' : 'Pending'}
-                                ${changedBy === 'Admin' ? '<br><br><strong style="color: #dc3545;">?? SECURITY NOTE:</strong><br><small style="color: #721c24;">When you select "Admin" in the ChangedBy dropdown, Google Sheets will prompt for the admin password. This prevents unauthorized admin claims.</small>' : ''}
+                                <br>📋 <strong>Status</strong>: ${status}
+                                <br>📅 <strong>Date</strong>: ${currentDate}
+                                <br>👤 <strong>Changed By</strong>: <span style="color: #dc3545; font-weight: bold;">${changedBy}</span>
+                                <br>✅ <strong>Admin Approved</strong>: ${changedBy === 'Admin' ? 'TRUE' : 'Pending'}
+                                ${changedBy === 'Admin' ? '<br><br><strong style="color: #dc3545;">⚠️ SECURITY NOTE:</strong><br><small style="color: #721c24;">When you select "Admin" in the ChangedBy dropdown, Google Sheets will prompt for the admin password. This prevents unauthorized admin claims.</small>' : ''}
                             </p>
                             <p style="margin: 6px 0 0 0; font-size: 11px;">
                                 <a href="${GOOGLE_SHEETS_CONFIG.sheetUrl}" 
                                    target="_blank" style="color: #0984e3; text-decoration: none;">
-                                   ?? Open Google Sheets
+                                   📊 Open Google Sheets
                                 </a>
                             </p>
                         </div>
                         <div style="background: ${changedBy === 'Admin' ? '#ffeef0' : '#fff3cd'}; padding: 6px; border-radius: 4px; border-left: 3px solid ${changedBy === 'Admin' ? '#dc3545' : '#ffc107'};">
                             <p style="margin: 0; font-size: 11px; color: ${changedBy === 'Admin' ? '#721c24' : '#856404'};">
-                                ${changedBy === 'Admin' ? '? Admin changes are immediately approved and synchronized' : '??? This keeps all devices synchronized'}
+                                ${changedBy === 'Admin' ? '✅ Admin changes are immediately approved and synchronized' : '🔄 This keeps all devices synchronized'}
                             </p>
                         </div>
                     </div>
@@ -3522,7 +3522,7 @@
                 <div style="background: white; padding: 30px; border-radius: 10px; max-width: 500px; 
                            width: 100%; margin: auto; min-height: fit-content; max-height: 90vh; 
                            overflow-y: auto; box-sizing: border-box;">
-                    <h3>?? Change Notification</h3>
+                    <h3>🔔 Change Notification</h3>
                     <div style="margin: 20px 0; max-height: 60vh; overflow-y: auto;">${message}</div>
                     <div style="text-align: center; position: sticky; bottom: 0; background: white; 
                                padding-top: 15px; margin-top: 15px;">
@@ -3602,7 +3602,7 @@
             
             modal.innerHTML = `
                 <div style="background: white; padding: 30px; border-radius: 10px; max-width: 600px; margin: 20px;">
-                    <h3>?? Google Sheets Setup Required</h3>
+                    <h3>📊 Google Sheets Setup Required</h3>
                     <p><strong>To enable real-time status sync:</strong></p>
                     <ol>
                         <li>Create a Google Sheet with columns: ParcelID | Status | LastUpdated</li>
@@ -3670,7 +3670,7 @@ P003        | reserved  | 2025-08-27</pre>
         function switchToClientView() {
             currentView = 'client';
             document.body.className = 'client-view';
-            document.getElementById('adminToggle').textContent = '?? Customer';
+            document.getElementById('adminToggle').textContent = '👤 Customer';
             console.log('Switched to client view');
         }
         
@@ -3678,14 +3678,14 @@ P003        | reserved  | 2025-08-27</pre>
             currentView = 'customer';
             isClientAuthenticated = false;
             document.body.className = 'customer-view';
-            document.getElementById('adminToggle').textContent = '?? Admin';
+            document.getElementById('adminToggle').textContent = '🔐 Admin';
             document.getElementById('syncStatus').style.display = 'none';
             console.log('Switched to customer view');
         }
         
         // Google Sheets Integration
         async function syncWithGoogleSheets(showStatus = true) {
-            console.log('?? Sync with Google Sheets initiated');
+            console.log('🔄 Sync with Google Sheets initiated');
             // First check if there are local changes that need to be pushed
             checkForLocalChanges(showStatus);
             
@@ -3703,7 +3703,7 @@ P003        | reserved  | 2025-08-27</pre>
                 if (showStatus) {
                     const syncStatus = document.getElementById('syncStatus');
                     syncStatus.innerHTML = `
-                        ?? <strong>Local changes detected!</strong><br>
+                        ⚠️ <strong>Local changes detected!</strong><br>
                         You have made changes in the admin panel that need to be updated in Google Sheets.<br>
                         <small>Sync will check for incoming changes from Google Sheets, but remember to update your sheet with local changes.</small>
                     `;
@@ -3729,12 +3729,12 @@ P003        | reserved  | 2025-08-27</pre>
             const syncStatus = document.getElementById('syncStatus');
             const messages = [
                 {
-                    html: '?? Testing sync status messages...',
+                    html: '🔄 Testing sync status messages...',
                     bg: '#cce7ff',
                     color: '#004085'
                 },
                 {
-                    html: '?? <strong>Local changes detected!</strong><br>You have made changes in the admin panel that need to be updated in Google Sheets.<br><small>This is what you should see when you make local changes.</small>',
+                    html: '⚠️ <strong>Local changes detected!</strong><br>You have made changes in the admin panel that need to be updated in Google Sheets.<br><small>This is what you should see when you make local changes.</small>',
                     bg: '#fff3cd',
                     color: '#856404'
                 },
@@ -3966,7 +3966,7 @@ P003        | reserved  | 2025-08-27</pre>
             if (showIndicator) {
                 // Show subtle update indicator for auto-refresh
                 const indicator = document.createElement('div');
-                indicator.innerHTML = '?? Updating...';
+                indicator.innerHTML = '🔄 Updating...';
                 indicator.style.cssText = 'position:fixed;top:10px;right:10px;background:rgba(0,0,0,0.7);color:white;padding:5px 10px;border-radius:15px;font-size:12px;z-index:10000;';
                 document.body.appendChild(indicator);
                 
@@ -3977,7 +3977,7 @@ P003        | reserved  | 2025-08-27</pre>
                 }, 2000);
             }
             
-            console.log('?? Loading public parcel statuses...');
+            console.log('🔄 Loading public parcel statuses...');
             
             // TEMPORARY: Skip API calls if using embedded data only
             if (GOOGLE_SHEETS_CONFIG.useEmbeddedDataOnly) {
@@ -3997,7 +3997,7 @@ P003        | reserved  | 2025-08-27</pre>
                 }
                 
                 const data = await response.json();
-                console.log('?? Public parcel data loaded:', data.values?.length || 0, 'rows');
+                console.log('📊 Public parcel data loaded:', data.values?.length || 0, 'rows');
                 
                 if (!data.values || data.values.length < 2) {
                     console.log('⚠️ No data rows found (need at least header + 1 data row)');
@@ -4143,12 +4143,12 @@ P003        | reserved  | 2025-08-27</pre>
             if (showStatus) {
                 console.clear(); // Clear console to see only our logs
             }
-            console.log('?? SIMPLE SYNC OVERRIDE STARTING - ONLY VERSION RUNNING...');
+            console.log('🔄 SIMPLE SYNC OVERRIDE STARTING - ONLY VERSION RUNNING...');
             
             const debugDiv = document.getElementById('syncStatus');
             
             if (showStatus) {
-                debugDiv.innerHTML = '?? Reading from Google Sheets...';
+                debugDiv.innerHTML = '🔄 Reading from Google Sheets...';
                 debugDiv.style.display = 'block';
                 debugDiv.style.background = '#cce7ff';
                 debugDiv.style.color = '#004085';
@@ -4158,7 +4158,7 @@ P003        | reserved  | 2025-08-27</pre>
             
             if (!isClientAuthenticated) {
                 if (showStatus) {
-                    debugDiv.innerHTML = '?? Please authenticate first';
+                    debugDiv.innerHTML = '🔐 Please authenticate first';
                     debugDiv.style.background = '#f8d7da';
                     debugDiv.style.color = '#721c24';
                     debugDiv.style.display = 'block';
@@ -4169,7 +4169,7 @@ P003        | reserved  | 2025-08-27</pre>
             try {
                 const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEETS_CONFIG.spreadsheetId}/values/${GOOGLE_SHEETS_CONFIG.sheetNameEncoded}!A2:E?key=${GOOGLE_SHEETS_CONFIG.apiKey}`;
                 
-                console.log('???? API Call:', url);
+                console.log('🌐 API Call:', url);
                 const response = await fetch(url);
                 
                 if (!response.ok) {
@@ -4177,7 +4177,7 @@ P003        | reserved  | 2025-08-27</pre>
                 }
                 
                 const data = await response.json();
-                console.log('?? Sheet Data rows:', data.values?.length || 0);
+                console.log('📊 Sheet Data rows:', data.values?.length || 0);
                 
                 if (!data.values || data.values.length === 0) {
                     debugDiv.innerHTML = '📭 No data in Google Sheets';
@@ -4201,7 +4201,7 @@ P003        | reserved  | 2025-08-27</pre>
                             const oldStatus = parcelStatus[parcelId];
                             
                             if (oldStatus !== newStatus) {
-                                console.log(`?? CHANGE: ${parcelId} ${oldStatus} → ${newStatus}`);
+                                console.log(`🔄 CHANGE: ${parcelId} ${oldStatus} → ${newStatus}`);
                                 
                                 // Store in Google Sheets data (the REAL source of truth)
                                 googleSheetsData[parcelId] = newStatus;
@@ -4259,7 +4259,7 @@ P003        | reserved  | 2025-08-27</pre>
                 
                 // Also reload public view to ensure consistency
                 if (updatedCount > 0) {
-                    console.log('?? Refreshing public view...');
+                    console.log('🔄 Refreshing public view...');
                     setTimeout(() => {
                         loadPublicParcelStatuses();
                     }, 500);
@@ -4277,7 +4277,7 @@ P003        | reserved  | 2025-08-27</pre>
                 console.log('? parcelLayers defined?:', typeof parcelLayers !== 'undefined');
                 
                 if (typeof parcelLayers !== 'undefined' && parcelLayers) {
-                    console.log(`???� parcelLayers array length: ${parcelLayers.length}`);
+                    console.log(`🗺️ parcelLayers array length: ${parcelLayers.length}`);
                     
                     let mapParcelIDs = [];
                     let sampleLayerProperties = [];
@@ -4285,8 +4285,8 @@ P003        | reserved  | 2025-08-27</pre>
                     // Check parcelLayers array instead of map.eachLayer
                     parcelLayers.forEach((layer, index) => {
                         if (index < 3) {
-                            console.log(`?? Parcel Layer ${index + 1}:`, layer);
-                            console.log(`?? Layer ${index + 1} structure:`, {
+                            console.log(`📍 Parcel Layer ${index + 1}:`, layer);
+                            console.log(`📍 Layer ${index + 1} structure:`, {
                                 hasFeature: !!layer.feature,
                                 hasOptions: !!layer.options,
                                 hasProperties: !!layer.feature?.properties,
@@ -4303,7 +4303,7 @@ P003        | reserved  | 2025-08-27</pre>
                                 const firstLayerKey = Object.keys(layer._layers)[0];
                                 if (firstLayerKey) {
                                     const firstSubLayer = layer._layers[firstLayerKey];
-                                    console.log(`?? First sub-layer in ${index + 1}:`, {
+                                    console.log(`📍 First sub-layer in ${index + 1}:`, {
                                         hasFeature: !!firstSubLayer.feature,
                                         feature: firstSubLayer.feature,
                                         properties: firstSubLayer.feature?.properties
@@ -4357,9 +4357,9 @@ P003        | reserved  | 2025-08-27</pre>
                         }
                     });
                     
-                    console.log('???� Map ParcelIDs found:', mapParcelIDs.slice(0, 15), '... (showing first 15)');
-                    console.log('?? Sample layer properties:', sampleLayerProperties);
-                    console.log('?? DETAILED properties analysis:');
+                    console.log('🗺️ Map ParcelIDs found:', mapParcelIDs.slice(0, 15), '... (showing first 15)');
+                    console.log('📍 Sample layer properties:', sampleLayerProperties);
+                    console.log('🔍 DETAILED properties analysis:');
                     sampleLayerProperties.forEach((props, index) => {
                         console.log(`   Property set ${index + 1}:`, props);
                         console.log(`   Available fields:`, Object.keys(props));
@@ -4368,7 +4368,7 @@ P003        | reserved  | 2025-08-27</pre>
                     console.log('❌ parcelLayers is not defined or empty');
                 }
                 
-                console.log('?? Sheet ParcelIDs we tried to match:', Object.keys(parcelStatus).slice(0, 15));
+                console.log('📊 Sheet ParcelIDs we tried to match:', Object.keys(parcelStatus).slice(0, 15));
                 
                 if (showStatus) {
                     debugDiv.innerHTML = `✅ SUCCESS! Updated ${updatedCount} parcels`;
@@ -4414,7 +4414,7 @@ P003        | reserved  | 2025-08-27</pre>
             const changesHtml = Array.isArray(changes) 
                 ? changes.map(change => `
                     <div style="background: rgba(255,255,255,0.1); padding: 8px; margin: 5px 0; border-radius: 5px; border-left: 3px solid #ffc107;">
-                        <strong>?? ${change.parcel}</strong><br>
+                        <strong>🏠 ${change.parcel}</strong><br>
                         <small>
                             ${change.oldStatus} → <span style="color: #ffd700;">${change.newStatus}</span><br>
                             Changed by: ${change.changedBy}
@@ -4423,7 +4423,7 @@ P003        | reserved  | 2025-08-27</pre>
                 `).join('')
                 : `
                     <div style="background: rgba(255,255,255,0.1); padding: 8px; margin: 5px 0; border-radius: 5px; border-left: 3px solid #ffc107;">
-                        <strong>?? ${changes.parcel}</strong><br>
+                        <strong>🏠 ${changes.parcel}</strong><br>
                         <small>
                             ${changes.oldStatus} → <span style="color: #ffd700;">${changes.newStatus}</span><br>
                             Changed by: ${changes.changedBy}
@@ -4434,7 +4434,7 @@ P003        | reserved  | 2025-08-27</pre>
             notification.innerHTML = `
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <div>
-                        <h4 style="margin: 0; color: #ffd700;">?? Sync Changes Detected</h4>
+                        <h4 style="margin: 0; color: #ffd700;">🔄 Sync Changes Detected</h4>
                         <small style="opacity: 0.9;">${Array.isArray(changes) ? changes.length : 1} parcel(s) updated</small>
                     </div>
                     <button onclick="this.parentElement.parentElement.parentElement.remove()" 
@@ -4459,7 +4459,7 @@ P003        | reserved  | 2025-08-27</pre>
             console.log('📢 Change notification shown for', Array.isArray(changes) ? changes.length : 1, 'changes');
         }
 
-        console.log('?? Sync function override installed!');
+        console.log('🔄 Sync function override installed!');
         
         // ===== ENHANCED DATABASE FUNCTIONS =====
         
@@ -4481,7 +4481,7 @@ P003        | reserved  | 2025-08-27</pre>
         function showMarketerPanel() {
           const content = `
             <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); z-index: 5000; max-width: 500px; max-height: 70vh; overflow-y: auto;">
-              <h2 style="margin-top: 0;">?? Manage Marketers</h2>
+              <h2 style="margin-top: 0;">👥 Manage Marketers</h2>
               
               <div style="margin-bottom: 15px;">
                 <h4>Add New Marketer</h4>
@@ -4546,7 +4546,7 @@ P003        | reserved  | 2025-08-27</pre>
             <div style="padding: 8px; background: #f9f9f9; border-left: 3px solid #17a2b8; margin: 5px 0; border-radius: 3px;">
               <strong>${m.name}</strong><br/>
               📱 ${m.phone}<br/>
-              ?? ₦${m.commission.toLocaleString('en-NG')}
+              💰 ₦${m.commission.toLocaleString('en-NG')}
               <button onclick="deleteMarketerFunc('${m.name}')" style="background: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer; margin-top: 5px;">Delete</button>
             </div>
           `).join('');
@@ -4571,7 +4571,7 @@ P003        | reserved  | 2025-08-27</pre>
               <div style="padding: 8px; background: #f0f0f0; border-left: 3px solid #fd7e14; margin: 5px 0; border-radius: 3px; word-break: break-all;">
                 <strong>${m.name}:</strong><br/>
                 <code style="background: white; padding: 4px; display: block; margin: 5px 0;">${link}</code>
-                <button onclick="copyToClipboard('${link}')" style="background: #28a745; color: white; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer;">?? Copy</button>
+                <button onclick="copyToClipboard('${link}')" style="background: #28a745; color: white; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer;">📋 Copy</button>
               </div>
             `;
           }).join('');
@@ -4592,7 +4592,7 @@ P003        | reserved  | 2025-08-27</pre>
           
           const content = `
             <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); z-index: 5000; max-width: 500px; max-height: 70vh; overflow-y: auto;">
-              <h2 style="margin-top: 0;">?? Territory Assignment</h2>
+              <h2 style="margin-top: 0;">📍 Territory Assignment</h2>
               
               <div style="margin-bottom: 15px;">
                 <label>Plot ID:</label>
@@ -4729,7 +4729,7 @@ P003        | reserved  | 2025-08-27</pre>
             body.innerHTML = `
                 <div class="database-summary">
                     <div class="summary-card">
-                        <h4>?? Total Revenue</h4>
+                        <h4>💰 Total Revenue</h4>
                         <div class="value">₦${totalRevenue.toLocaleString()}</div>
                     </div>
                     <div class="summary-card">
@@ -4758,7 +4758,7 @@ P003        | reserved  | 2025-08-27</pre>
                         <small style="color: #0c5460; font-size: 10px;">${soldParcels.length + reservedParcels.length} of ${totalParcels}</small>
                     </div>
                     <div class="summary-card" style="background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);">
-                        <h4 style="color: #721c24;">?? Avg Price</h4>
+                        <h4 style="color: #721c24;">💵 Avg Price</h4>
                         <div class="value" style="color: #721c24;">₦${soldParcels.length > 0 ? Math.round(revenueGenerated / soldParcels.length).toLocaleString() : '3,000,000'}</div>
                         <small style="color: #721c24; font-size: 10px;">Per sold parcel</small>
                     </div>
@@ -4782,7 +4782,7 @@ P003        | reserved  | 2025-08-27</pre>
                     </div>
                 </div>
                 
-                <h4>???? BUYER CONTACTS & PROPERTY DETAILS</h4>
+                <h4>👥 BUYER CONTACTS & PROPERTY DETAILS</h4>
                 <table class="database-table">
                     <thead>
                         <tr>
@@ -4817,7 +4817,7 @@ P003        | reserved  | 2025-08-27</pre>
                 </table>
                 
                 <div style="margin-top: 20px; padding: 15px; background: #e7f3ff; border-radius: 8px; border-left: 4px solid #007bff;">
-                    <h4 style="margin-top: 0; color: #007bff;">� CASH FLOW ANALYSIS</h4>
+                    <h4 style="margin-top: 0; color: #007bff;">💵 CASH FLOW ANALYSIS</h4>
                     <p><strong>Revenue Realization Rate:</strong> ${((revenueGenerated / totalPotentialRevenue) * 100).toFixed(1)}% (₦${revenueGenerated.toLocaleString()} / ₦${totalPotentialRevenue.toLocaleString()})</p>
                     <p><strong>Pipeline Conversion:</strong> ${reservedParcels.length > 0 ? `₦${revenueExpected.toLocaleString()} pending from ${reservedParcels.length} reserved parcels` : 'No reserved parcels'}</p>
                     <p><strong>Average Sale Value:</strong> ₦${soldParcels.length > 0 ? averageParcelPrice.toLocaleString() : '15,000,000'}</p>
@@ -4825,7 +4825,7 @@ P003        | reserved  | 2025-08-27</pre>
                 </div>
                 
                 <div style="margin-top: 15px; text-align: center; color: #666; font-size: 12px;">
-                    <p>?? Data syncs automatically every 30 seconds • Use "Admin Sync" for immediate updates</p>
+                    <p>🔄 Data syncs automatically every 30 seconds • Use "Admin Sync" for immediate updates</p>
                 </div>
             `;
         }
@@ -4857,7 +4857,7 @@ P003        | reserved  | 2025-08-27</pre>
                         <textarea id="contactMessage" placeholder="Tell us about your interest..." rows="3"></textarea>
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn-submit">?? Request Information</button>
+                        <button type="submit" class="btn-submit">📧 Request Information</button>
                     </div>
                 </form>
             </div>
