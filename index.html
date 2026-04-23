@@ -1593,7 +1593,7 @@
                 // ⏰ SET UP AUTOMATIC REFRESH EVERY 30 SECONDS FOR ALL USERS
                 setInterval(() => {
                     console.log('🔄 Auto-refreshing parcel statuses...');
-                    loadPublicParcelStatuses(true); // Show indicator for auto-refresh
+                    loadPublicParcelStatuses(false); // Silent auto-refresh
                 }, 30000); // Refresh every 30 seconds
                 
             }, 1000); // Small delay to ensure parcels are fully rendered
