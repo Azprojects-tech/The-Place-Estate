@@ -4759,7 +4759,7 @@ P003        | reserved  | 2025-08-27</pre>
                     </div>
                     <div class="summary-card" style="background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);">
                         <h4 style="color: #721c24;">💵 Avg Price</h4>
-                        <div class="value" style="color: #721c24;">₦${soldParcels.length > 0 ? Math.round(revenueGenerated / soldParcels.length).toLocaleString() : '3,000,000'}</div>
+                        <div class="value" style="color: #721c24;">₦${soldParcels.length > 0 ? Math.round(revenueGenerated / soldParcels.length).toLocaleString() : defaultPrice.toLocaleString()}</div>
                         <small style="color: #721c24; font-size: 10px;">Per sold parcel</small>
                     </div>
                 </div>
@@ -4778,7 +4778,7 @@ P003        | reserved  | 2025-08-27</pre>
                     <div class="summary-card" style="background: linear-gradient(135deg, #e2e3e5 0%, #d6d8db 100%);">
                         <h4>🎯 Remaining Potential</h4>
                         <div class="value" style="color: #6c757d;">₦${remainingRevenuePotential.toLocaleString()}</div>
-                        <small style="color: #6c757d; font-size: 10px;">From ${50 - soldParcels.length - reservedParcels.length} available parcels</small>
+                        <small style="color: #6c757d; font-size: 10px;">From ${totalParcels - soldParcels.length - reservedParcels.length} available parcels</small>
                     </div>
                 </div>
                 
@@ -4821,7 +4821,7 @@ P003        | reserved  | 2025-08-27</pre>
                     <p><strong>Revenue Realization Rate:</strong> ${((revenueGenerated / totalPotentialRevenue) * 100).toFixed(1)}% (₦${revenueGenerated.toLocaleString()} / ₦${totalPotentialRevenue.toLocaleString()})</p>
                     <p><strong>Pipeline Conversion:</strong> ${reservedParcels.length > 0 ? `₦${revenueExpected.toLocaleString()} pending from ${reservedParcels.length} reserved parcels` : 'No reserved parcels'}</p>
                     <p><strong>Average Sale Value:</strong> ₦${soldParcels.length > 0 ? averageParcelPrice.toLocaleString() : '15,000,000'}</p>
-                    <p><strong>Remaining Market Value:</strong> ₦${remainingRevenuePotential.toLocaleString()} from ${99 - soldParcels.length - reservedParcels.length} available parcels</p>
+                    <p><strong>Remaining Market Value:</strong> ₦${remainingRevenuePotential.toLocaleString()} from ${totalParcels - soldParcels.length - reservedParcels.length} available parcels</p>
                 </div>
                 
                 <div style="margin-top: 15px; text-align: center; color: #666; font-size: 12px;">
