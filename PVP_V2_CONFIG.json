@@ -1,0 +1,141 @@
+{
+  "_meta": {
+    "description": "PVP Portal V2 Configuration — The Palace Estate",
+    "version": "2.0",
+    "based_on": "V1 (April 29, 2026)",
+    "instructions": "Fill in all TODO fields before running the portal setup script. Fields marked KEEP can be left as-is if unchanged from V1."
+  },
+
+  "estate": {
+    "name": "The Palace Estate",
+    "tagline": "TODO: e.g. Premium Residential Living in Enugu",
+    "location": "Enugu",
+    "state": "Enugu State",
+    "country": "Nigeria",
+    "lga": "TODO: Local Government Area"
+  },
+
+  "client": {
+    "company": "Arkey Ltd",
+    "website": "https://www.arkeyltd.com/",
+    "contact_email": "info@arkeyltd.com",
+    "whatsapp": "+2349060646900",
+    "phone": "+2349060646900"
+  },
+
+  "google_sheets": {
+    "sheet_id": "17D1CEVdFHPXAz8w3h_cteSr0rQ-LsuKL3M9c00FOWxE",
+    "sheet_tab": "THE_PLACE_ESTATE_PARCELS",
+    "api_key": "AIzaSyCkLewazfYqcQ_llw_Adj_mTNK71T2iRL0",
+    "refresh_interval_seconds": 30
+  },
+
+  "deployment": {
+    "platform": "Netlify",
+    "site_name": "the-palace-estate-enugu",
+    "live_url": "https://the-palace-estate-enugu.netlify.app/",
+    "github_org": "Azprojects-tech",
+    "github_repo": "The-Place-Estate",
+    "branch": "main"
+  },
+
+  "admin": {
+    "password": "TODO: Set new secure password for V2",
+    "v1_password_was": "Val2026"
+  },
+
+  "map": {
+    "default_zoom": 17,
+    "min_zoom": 10,
+    "max_zoom": 25,
+    "default_base_layer": "satellite",
+    "center_auto_calculated": true,
+    "center_lat_lng_fallback": [6.512298, 7.580954]
+  },
+
+  "parcels": {
+    "total": 36,
+    "shapefile_source": "Shapefiles/ParcelID.shp — KEEP or update if re-surveyed",
+    "geojson_embedded": true,
+    "id_field": "Text",
+    "area_field": "Shape_Area",
+    "perimeter_field": "Shape_Leng"
+  },
+
+  "layers": {
+    "existing_road": {
+      "name": "Ugwuogo Nike - Opi Road",
+      "style": { "color": "#FFD700", "weight": 4, "opacity": 0.9 },
+      "label": true,
+      "shapefile": "KEEP — embedded in index.html"
+    },
+    "major_road": {
+      "name": "Major Road (Godfrey Okoye University Road)",
+      "style": { "color": "#555555", "weight": 4, "opacity": 0.6 },
+      "label_on_long_segment_only": true,
+      "label_text": "GODFREY OKOYE UNIVERSITY ROAD",
+      "label_zoom_min": 13,
+      "shapefile": "Shapefiles/Major Road.shp — KEEP or update if re-surveyed"
+    },
+    "stream": {
+      "name": "Stream",
+      "style": { "color": "#4488FF", "weight": 2, "opacity": 0.7 },
+      "label": false,
+      "shapefile": "Shapefiles/Stream.shp — KEEP or update if re-surveyed"
+    },
+    "estates_boundary": {
+      "name": "Nearby Estates",
+      "style": { "color": "#FFFFFF", "weight": 2, "opacity": 0.7, "dashArray": "6,6" },
+      "label": true
+    }
+  },
+
+  "landmarks": {
+    "description": "All 6 label points — update coordinates if shapefile is re-surveyed",
+    "font_size_px": 10,
+    "points": [
+      { "label": "Caritas University",       "lat": 6.503312521976128,  "lng": 7.574686020622683 },
+      { "label": "Goodluck Jonathan Market", "lat": 6.517135584092197,  "lng": 7.574712574871565 },
+      { "label": "Enugu Airport",            "lat": 6.47543181304021,   "lng": 7.570621677311077 },
+      { "label": "Godfrey Okoye University", "lat": 6.557023880342049,  "lng": 7.605371025044453 },
+      { "label": "Poultry Farm",             "lat": 6.511473585689819,  "lng": 7.583657837407011 },
+      { "label": "Crystal Luxury Hotel",     "lat": 6.5184042233413875, "lng": 7.581139518353368 }
+    ]
+  },
+
+  "pricing": {
+    "default_price_naira": "TODO: Confirm current price per sqm or per plot",
+    "currency": "NGN",
+    "price_display_format": "toLocaleString('en-NG')"
+  },
+
+  "v2_features_to_build": {
+    "P1_critical": [
+      "Buyer name & contact stored per parcel in Google Sheets",
+      "PDF receipt / offer letter generator from admin panel",
+      "Multi-estate switcher (dropdown to switch portals)",
+      "Password reset / admin unlock flow",
+      "Marketer dashboard — individual performance view"
+    ],
+    "P2_important": [
+      "Plot search by buyer name",
+      "Bulk status update (select multiple parcels)",
+      "CSV export of all parcel statuses with buyer info",
+      "Installment / payment plan tracker per parcel",
+      "Parcel comparison view (side-by-side two plots)"
+    ],
+    "P3_nice_to_have": [
+      "Dark mode toggle",
+      "Animated parcel selection highlight",
+      "3D terrain view toggle (Cesium or Mapbox GL)",
+      "QR code per parcel for physical site signs",
+      "WhatsApp auto-message template from parcel popup"
+    ]
+  },
+
+  "v2_known_issues_to_fix": [
+    "Road label rotation formula has accumulated +61 deg manual offset — recalculate cleanly in V2",
+    "locationsData uses GeoJSON but major road / stream use raw arrays — unify to GeoJSON approach in V2",
+    "Admin panel password is plain-text in JS — move to environment variable or hash in V2"
+  ]
+}
