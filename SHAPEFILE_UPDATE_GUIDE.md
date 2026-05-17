@@ -200,6 +200,90 @@ c:/Users/Admin/The-Place-Estate/.venv/Scripts/python.exe -m pip install pyshp
 
 ---
 
+---
+
+## Partial Shapefile Updates — Adjusting a Section or Block
+
+> **This question came up during the Palace Estate session:** What if only part of the estate layout changes — a block is subdivided, a road alignment is adjusted, or a few plots are renumbered — rather than a complete redesign? Do you have to replace everything?
+
+The answer is: it depends on what changed. There are two strategies.
+
+---
+
+### Strategy A — Full Replacement (what we did here)
+
+**Use when:**
+- The overall layout has significantly changed (many plots moved, renumbered, or redesigned)
+- You have a clean new shapefile that covers the entire estate
+- You're willing to clear and re-import Google Sheets (sale status data will need to be manually re-entered if plots already have buyers)
+
+This is the most reliable approach. No room for partial mistakes.
+
+**Downside:** If plots 1–20 already have buyers recorded in Google Sheets and you do a full replacement, those buyer records are cleared when you delete and re-import the sheet. You would need to manually re-enter or copy-paste the buyer data into the new sheet.
+
+---
+
+### Strategy B — Surgical Update (for minor layout changes)
+
+**Use when:**
+- Only 1–5 plots have changed shape (boundary adjustment, plot split, etc.)
+- Plot labels (parcel IDs) are NOT changing — only geometries are
+- You do not want to disrupt existing Google Sheets buyer data
+
+**Steps:**
+
+**1. Run the conversion script on the new shapefile (as normal)**  
+This gives you a fresh `subdivision_data.json` with the correct coordinates. Don't push it yet.
+
+**2. Identify which features changed**  
+Compare the new GeoJSON with the live one:
+```powershell
+git diff subdivision_data.json
+```
+Or open both files and search for the parcel `Text` values you know changed. Each feature in the GeoJSON looks like:
+```json
+{"type":"Feature","properties":{"Text":"14","Shape_Area":312.5},"geometry":{"type":"Polygon","coordinates":[[[7.583,6.511],...]]}}
+```
+
+**3. Copy only the changed features from the new GeoJSON into the live one**  
+Open `subdivision_data.json`, find the feature with the matching `Text` value, and replace its `geometry.coordinates` (and `Shape_Area` if it changed). Do this for each affected plot.
+
+**4. Push `subdivision_data.json` only — do NOT touch the CSV or Google Sheets**  
+The map will show the updated boundaries. Because the parcel IDs haven't changed, the portal will still match the Google Sheets data correctly.
+
+```powershell
+git add subdivision_data.json
+git commit -m "Update: adjust boundaries for plots 14, 15 (block B realignment)"
+git push origin main
+```
+
+**5. If new plots were ADDED (a plot was split into two):**  
+- Add the new feature(s) to `subdivision_data.json` manually
+- Add the new row(s) to Google Sheets manually — copy format from an existing row, set Status to `Available`
+- Do NOT regenerate and re-import the full CSV (that would overwrite all existing buyer data)
+
+---
+
+### Decision Guide
+
+| Situation | Strategy |
+|---|---|
+| Whole estate redesigned, new shapefile | **A — Full Replacement** |
+| A few plot boundaries adjusted, same IDs | **B — Surgical: update GeoJSON only** |
+| Plots renumbered (e.g. 14 → 14A, 14B) | **B — Surgical: GeoJSON + add rows to Google Sheets** |
+| A road was realigned, no plot IDs changed | **B — Surgical: update GeoJSON only** |
+| Existing buyers in Google Sheets + layout change | **B — Surgical** (to preserve buyer data) |
+| First-time setup, no buyers yet | **A — Full Replacement** (safest) |
+
+---
+
+### Risk with Strategy B
+
+The main risk is getting the GeoJSON coordinates wrong when editing manually — malformed JSON, wrong coordinate order, or accidentally editing the wrong feature. Always:
+- Back up `subdivision_data.json` before editing it (`git stash` or copy to a temp file)
+- Validate the JSON after editing (paste into https://jsonlint.com or run `python -c "import json; json.load(open('subdivision_data.json'))"`)
+- Test on a local/preview copy before pushing to production
+
 ## Reference
 
 | Item | Value |

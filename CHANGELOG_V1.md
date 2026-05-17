@@ -129,3 +129,108 @@
 ## MASTER TEMPLATE STATUS
 
 All bug fixes (emoji corruption, hardcoded dashboard, silent refresh) have been **mirrored to the ONUO Estate master template** at `C:\Users\Admin\ONUO Estate\index.html`. New features (road/stream/labels) are portal-specific and not in the master template.
+
+---
+
+---
+
+# SESSION 2 — Shapefile Replacement & Flash Fixes
+# Date: May 17, 2026
+# Prepared by: GitHub Copilot / Pineleaf Dev Session
+
+---
+
+## CONTEXT
+
+The estate underwent a layout redesign. The original parcel map was replaced with a new surveyor-supplied shapefile. This session covered: replacing the shapefile, regenerating all data files, fixing bugs discovered in the process, and two separate UI flash issues.
+
+---
+
+## TASK — Full Shapefile Replacement
+
+**What changed:**  
+The estate layout was completely redesigned by the surveyor. The new shapefile had 39 features (36 numbered saleable plots + CR/1 + Green Area + UT/1).
+
+**Steps completed:**
+1. New shapefile files copied to `Shapefiles/Parcels.*` (replacing old files)
+2. Python conversion script run via `.venv` — calculated plot areas from polygon geometry (Shoelace formula) because `Shape_Area` field was empty in the new shapefile
+3. `subdivision_data.json` regenerated — 39 features, WGS84 GeoJSON
+4. `THE_PLACE_ESTATE_TEMPLATE.csv` regenerated — 36 saleable plots, 12 columns, default price ₦15,000,000
+5. CSV imported into Google Sheets — user cleared the sheet and pasted new data
+6. Git push → Netlify auto-deployed → new map layout confirmed live
+
+**Reference:** Full process documented in `SHAPEFILE_UPDATE_GUIDE.md`.
+
+---
+
+## BUG FIX 4 — Google Sheet Tab Name Mismatch
+
+- **Problem:** After the shapefile replacement and CSV import, status changes made in Google Sheets were not reflecting on the portal. The map showed parcel colours but the data never synced.
+- **Root Cause:** When the CSV was imported into Google Sheets, it created a tab named `THE_PLACE_ESTATE_TEMPLATE`. The portal was hardcoded to read from `THE_PLACE_ESTATE_PARCELS` (the original tab name from V1 setup).
+- **Fix:**
+  - `index.html` (obfuscated, deployed): found `sheetNameEncoded` string and changed `THE_PLACE_ESTATE_PARCELS` → `THE_PLACE_ESTATE_TEMPLATE`
+  - `estate-config.js`: updated `sheet_tab` field
+  - `pvp-config.json`: updated `google_sheet_tab` field
+- **Result:** Sync working — status changes in Google Sheets now reflect on the portal within 30 seconds.
+- **Lesson:** When a CSV import creates a new sheet tab, the tab name is derived from the CSV filename. Always check that the portal's `sheetNameEncoded` config value matches the actual tab name at the bottom of the Google Sheet.
+
+---
+
+## BUG FIX 5 — Loading Splash Before Welcome Screen
+
+- **Problem:** A white box with a spinning loader and the text "Loading subdivision map data..." appeared in the centre of the screen for several seconds before the welcome modal appeared. The user described this as an "error message" flashing before the welcome screen.
+- **Root Cause:** The `#loading` div in the HTML had no `display: none` — not in the CSS, not inline. The browser renders the HTML body immediately and progressively. Because the portal's obfuscated JavaScript is very large (~1,300+ lines), it takes the browser time to parse and execute it before `DOMContentLoaded` fires. During that parse window, the `#loading` div was already rendered and visible. Only once `DOMContentLoaded` fired did JavaScript show the welcome modal (which covers the loading div). On slower connections or devices, this window was long enough for users to clearly see the loading text.
+- **Why it got worse after BUG FIX 4:** Before the tab name fix, the Google Sheets API would fail fast (wrong tab name → quick 404). After the fix, the API actually succeeds and fetches real data, so the network round-trip takes longer — keeping the map in the "loading" state slightly longer and making the flash more noticeable.
+- **Fix:** Added `style="display:none"` to the `#loading` div in both `index.html` and `index.html.bak`. The welcome modal now acts as the only visible loading state from the moment the page renders. The `#loading` div is still present in the DOM — it just starts hidden. JavaScript would still have called `.style.display = 'none'` on it when the map finished loading anyway; we simply start it in that state.
+- **Result:** No flash before welcome screen. Portal loads cleanly to welcome modal.
+
+---
+
+## KNOWN ISSUE — Brief Purple/Dark Screen After Welcome Modal
+
+- **Status:** Not fixed in this portal. To be addressed in the next portal build.
+- **Description:** After the welcome modal auto-hides (5 seconds), a brief purple or dark-tinted blank screen flashes for a fraction of a second before the satellite map tiles are fully rendered and visible.
+- **Likely Root Cause:** The map container or page body has a dark/purple CSS background colour. When the welcome modal disappears, there is a short moment before all Leaflet satellite tile images are painted on screen. During that gap, the background colour of the `#map` div (or `<body>`) shows through.
+- **How to fix in the next portal:**
+  1. Find the CSS background colour of `#map` and `body` — change it to a neutral grey or match the satellite tile average colour (dark green/grey for aerial imagery)
+  2. OR delay the welcome modal hide slightly longer (e.g., from 5000ms to 6000ms) to give tiles more time to load before the modal disappears
+  3. OR add a CSS fade/transition on the welcome modal so it fades out slowly instead of instantly disappearing, making the underlying tile-load less jarring
+  4. The most elegant fix: set `#map { background: #2c3e50; }` (dark blue-grey) or `#map { background: #1a1a2e; }` to match the dark colour of satellite tiles so the gap is invisible
+
+---
+
+## COMMIT HISTORY (Session 2)
+
+| Commit    | Message                                                                          |
+|-----------|----------------------------------------------------------------------------------|
+| `(early)` | Replace shapefile: new estate layout (39 features, 36 plots)                    |
+| `(mid)`   | Fix: sheet tab name THE_PLACE_ESTATE_PARCELS → THE_PLACE_ESTATE_TEMPLATE        |
+| `fa73f2b` | Fix: remove syncStatus flash - clear default text, inline display:none           |
+| `d769393` | Fix: hide loading div by default to prevent flash before welcome modal           |
+
+---
+
+## FILES CHANGED (Session 2)
+
+| File                          | Changes                                                               |
+|-------------------------------|-----------------------------------------------------------------------|
+| `Shapefiles/Parcels.*`        | Replaced with new redesigned shapefile                                |
+| `subdivision_data.json`       | Regenerated — 39 features from new shapefile                          |
+| `THE_PLACE_ESTATE_TEMPLATE.csv` | Regenerated — 36 saleable plots with calculated areas               |
+| `index.html`                  | Tab name fix; syncStatus cleanup; loading div hidden by default       |
+| `index.html.bak`              | Same loading div fix applied to source                                |
+| `estate-config.js`            | Updated `sheet_tab` to match actual Google Sheet tab name             |
+| `pvp-config.json`             | Updated `google_sheet_tab` to match actual Google Sheet tab name      |
+| `SHAPEFILE_UPDATE_GUIDE.md`   | New — full documented process for shapefile replacement               |
+
+---
+
+## PORTAL TEMPLATE STATUS
+
+> **This portal — The Palace Estate — is the confirmed base template for all future PVP portals.**
+
+Every portal we build is the template for the one that follows. The approach is: build on what works, fix what breaks, document both. When building the next portal, start from a copy of this `index.html.bak`, apply the client's shapefile, and note what new problems arise — those become the next changelog.
+
+**Known issues inherited into the next build (to fix there, not here):**
+- Purple/dark flash after welcome modal hides (see KNOWN ISSUE above)
+- `index.html` is obfuscated and `index.html.bak` is gitignored — direct edits to `index.html` work but break the source/deployed separation. Consider a cleaner build pipeline for future portals.
